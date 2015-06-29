@@ -75,6 +75,13 @@ public class Campaign implements Serializable {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+    
+    public static final String SCRAPPING_PENDING = "SCRAPPING_PENDING";
+    public static final String SCRAPPING_STARTED = "SCRAPPING_STARTED";
+    public static final String SCRAPPING_DONE = "SCRAPPING_DONE";
+    public static final String MAILING_PENDING = "MAILING_PENDING";
+    public static final String MAILING_STARTED = "MAILING_STARTED";
+    public static final String MAILING_DONE = "MAILING_DONE";
 
     public Campaign() {
     }
