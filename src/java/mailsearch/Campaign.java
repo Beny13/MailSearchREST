@@ -162,6 +162,15 @@ public class Campaign implements Serializable {
         this.userId = userId;
     }
 
+    public String getEmailCollectionToString() {
+        String res = "";
+        for (Email email : this.emailCollection) {
+            res += email.getEmail();
+        }
+
+        return res;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -186,5 +195,5 @@ public class Campaign implements Serializable {
     public String toString() {
         return "mailsearch.Campaign[ id=" + id + " ]";
     }
-    
+
 }

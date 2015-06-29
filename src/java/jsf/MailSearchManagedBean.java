@@ -10,7 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import mailsearch.Campaign;
-import mailsearch.User;
+import mailsearch.Email;
 import mailsearch.service.CampaignFacadeREST;
 import mailsearch.service.EmailFacadeREST;
 import mailsearch.service.UserFacadeREST;
@@ -34,12 +34,12 @@ public class MailSearchManagedBean {
     public MailSearchManagedBean() {
     }
 
-    public String test() {
-        return userFacadeREST.find(1).getMail();
+    public List<Campaign> getCampaignsByUser() {
+        return campaignFacadeREST.findAll();
     }
 
-    public List<Campaign> getCampaingsByUser() {
-        return campaignFacadeREST.findAll();
+    public List<Email> getEmailsByCampaign(Campaign campaign) {
+        return (List<Email>) campaign.getEmailCollection();
     }
 
 }
