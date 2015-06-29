@@ -44,14 +44,12 @@ public class NewCampaignManagedBean {
         this.keyword = keyword;
     }
     
-    public String create() {
-        User usr = userFacadeREST.find(1);
-        
+    public String createByUser(User user) {
         campaign.setKeyword(keyword);
         campaign.setStatus(Campaign.SCRAPPING_PENDING);
-        campaign.setUserId(usr);
+        campaign.setUserId(user);
         campaignFacadeREST.create(campaign);
-        return "index";
+        return "userInterface";
     }
     
        

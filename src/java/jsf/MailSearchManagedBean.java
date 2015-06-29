@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import mailsearch.Campaign;
 import mailsearch.Email;
+import mailsearch.User;
 import mailsearch.service.CampaignFacadeREST;
 import mailsearch.service.EmailFacadeREST;
 import mailsearch.service.UserFacadeREST;
@@ -44,12 +45,11 @@ public class MailSearchManagedBean {
     }
     
     
-
     public MailSearchManagedBean() {
     }
 
-    public List<Campaign> getCampaignsByUser() {
-        return (List<Campaign>) getSessionBean().getCurrentUser().getCampaignCollection();
+    public List<Campaign> getCampaignsByUser(User user) {
+        return (List<Campaign>) user.getCampaignCollection();
     }
 
     public List<Email> getEmailsByCampaign(Campaign campaign) {

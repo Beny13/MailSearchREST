@@ -14,7 +14,7 @@
                 <p:inputText id="identifiant" value="#{connexionBean.identifiant}" title="Identifiant" required="true"/>
 
                 <p:outputLabel value="Mot de passe :" for="mdp" />
-                <p:inputText id="mdp" value="#{connexionBean.password}" title="Password" required="true"/>
+                <p:inputText id="mdp" value="#{connexionBean.password}" title="Password" type="password" required="true"/>
             </p:panelGrid>
             <br/>
             <p:commandButton value="Connexion" ajax="false" actionListener="#{connexionBean.testConnection()}" update="grid">

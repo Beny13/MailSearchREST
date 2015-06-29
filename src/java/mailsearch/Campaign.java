@@ -177,6 +177,12 @@ public class Campaign implements Serializable {
 
         return res;
     }
+    /*
+    public String getNiceStatus() {
+        switch (this.getStatus()) {
+            case 
+        }
+    }*/
 
     @Override
     public int hashCode() {

@@ -6,7 +6,7 @@
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <h3>Campagnes</h3>
-        <p:accordionPanel activeIndex="false" dynamic="true" value="#{mailSearchManagedBean.campaignsByUser}" var="campaign">
+        <p:accordionPanel activeIndex="false" dynamic="true" value="#{mailSearchManagedBean.getCampaignsByUser(sessionBean.currentUser)}" var="campaign">
             <p:tab title="#{campaign.keyword}">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="Status:" style="font-weight: bold" />
@@ -28,7 +28,7 @@
         <f:view>
             <h:form>
                 <p:inputText id="keyword" value="#{newCampaignManagedBean.keyword}" styleClass="text-center" placeholder="Mot-clé" title="keyword" required="true"/>
-                <p:commandButton value="Valider" ajax="false" styleClass="hidden" actionListener="#{newCampaignManagedBean.create}"/>
+                <p:commandButton value="Valider" ajax="false" styleClass="hidden" actionListener="#{newCampaignManagedBean.createByUser(sessionBean.currentUser)}"/>
             </h:form>
         </f:view>
     </ui:define>
