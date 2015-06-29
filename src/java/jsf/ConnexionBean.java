@@ -93,7 +93,7 @@ public class ConnexionBean {
                 getSessionBean().setCurrentUser(u);
                 System.out.println(getSessionBean().getCurrentUser().getMail());
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + "/userInterface.xhtml");
+                ec.redirect(ec.getRequestContextPath() + "/faces/userInterface.xhtml");
             }
             else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", "Votre mot de passe est incorrect"));
