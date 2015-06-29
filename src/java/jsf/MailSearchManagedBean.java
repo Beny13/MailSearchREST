@@ -5,9 +5,13 @@
  */
 package jsf;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import mailsearch.Campaign;
+import mailsearch.User;
+import mailsearch.service.CampaignFacadeREST;
 import mailsearch.service.EmailFacadeREST;
 import mailsearch.service.UserFacadeREST;
 
@@ -20,15 +24,22 @@ import mailsearch.service.UserFacadeREST;
 public class MailSearchManagedBean {
     @EJB
     private EmailFacadeREST emailFacadeREST;
-    
+
     @EJB
     private UserFacadeREST userFacadeREST;
 
+    @EJB
+    private CampaignFacadeREST campaignFacadeREST;
+
     public MailSearchManagedBean() {
     }
-    
+
     public String test() {
         return userFacadeREST.find(1).getMail();
     }
-    
+
+    public List<Campaign> getCampaingsByUser() {
+        return campaignFacadeREST.findAll();
+    }
+
 }
