@@ -6,6 +6,7 @@
 package jsf;
 
 import static com.sun.faces.facelets.util.Path.context;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,8 +15,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
+import javax.servlet.RequestDispatcher;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import mailsearch.User;
 import mailsearch.service.UserFacadeREST;
 
@@ -31,6 +35,14 @@ public class ConnexionBean {
     
     @ManagedProperty(value="#{sessionBean}")
     private SessionBean sessionBean;
+
+    public SessionBean getSessionBean() {
+        return sessionBean;
+    }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
     
     public String getIdentifiant() {
         return identifiant;
@@ -59,14 +71,16 @@ public class ConnexionBean {
 
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes("UTF-8"));
-        String hashedPassword = new String(hash);
-        
+        String hashedPassword = (new HexBinaryAdapter()).marshal(hash);
+        hashedPassword = hashedPassword.toLowerCase();
+
         return u.getPassword().equals(hashedPassword);
 
     }
     
-    public void testConnection() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+    public void testConnection() throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException{
         User u = null;
+        
         try{
             u = userFacadeREST.getEM().createNamedQuery("User.findByMail",User.class).setParameter("mail", identifiant).getSingleResult();
         }
@@ -76,9 +90,10 @@ public class ConnexionBean {
         if(u != null){
             boolean equality = comparePassword(u);
             if(equality){
-                //connexion
-                System.out.println("YOLOOOOOOOOOOO");
-                this.sessionBean.setCurrentUser(u);
+                getSessionBean().setCurrentUser(u);
+                System.out.println(getSessionBean().getCurrentUser().getMail());
+                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                ec.redirect(ec.getRequestContextPath() + "/userInterface.xhtml");
             }
             else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", "Votre mot de passe est incorrect"));

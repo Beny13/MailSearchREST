@@ -35,11 +35,21 @@ public class MailSearchManagedBean {
     @ManagedProperty(value="#{sessionBean}")
     private SessionBean sessionBean;
 
+    public SessionBean getSessionBean() {
+        return sessionBean;
+    }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
+    
+    
+
     public MailSearchManagedBean() {
     }
 
     public List<Campaign> getCampaignsByUser() {
-        return campaignFacadeREST.findAll();
+        return (List<Campaign>) getSessionBean().getCurrentUser().getCampaignCollection();
     }
 
     public List<Email> getEmailsByCampaign(Campaign campaign) {
@@ -50,7 +60,7 @@ public class MailSearchManagedBean {
         return "emailEdit?campaignId=" + campaignId;
     }
     
-    public String goToNewCampaing() {
+    public String goToNewCampaign() {
         return "newCampaign";
     }
 
