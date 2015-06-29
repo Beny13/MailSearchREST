@@ -28,7 +28,7 @@
         <f:view>
             <h:form>
                 <p:inputText id="keyword" value="#{newCampaignManagedBean.keyword}" styleClass="text-center" placeholder="Mot-clé" title="keyword" required="true"/>
-                <p:commandButton value="Valider" ajax="false" styleClass="hidden" actionListener="#{newCampaignManagedBean.create}"/>
+                <p:commandButton value="Valider" ajax="false" styleClass="hidden" actionListener="#{newCampaignManagedBean.createByUser(sessionBean.currentUser)}"/>
             </h:form>
         </f:view>
     </ui:define>
