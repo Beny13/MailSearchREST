@@ -8,6 +8,7 @@ package jsf;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import mailsearch.Campaign;
 import mailsearch.Email;
@@ -30,6 +31,9 @@ public class MailSearchManagedBean {
 
     @EJB
     private CampaignFacadeREST campaignFacadeREST;
+    
+    @ManagedProperty(value="#{sessionBean}")
+    private SessionBean sessionBean;
 
     public MailSearchManagedBean() {
     }
