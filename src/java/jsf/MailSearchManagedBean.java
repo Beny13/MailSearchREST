@@ -42,4 +42,8 @@ public class MailSearchManagedBean {
         return (List<Email>) campaign.getEmailCollection();
     }
 
+    public String goToSendMail(Integer campaignId) {
+        return "emailEdit?campaignId=" + campaignId;
+    }
+
 }

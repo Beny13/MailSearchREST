@@ -122,7 +122,7 @@
 
 
         <h3>DataModel</h3>
-        <p:accordionPanel value="#{mailSearchManagedBean.campaignsByUser}" var="campaign">
+        <p:accordionPanel activeIndex="false" dynamic="true" value="#{mailSearchManagedBean.campaignsByUser}" var="campaign">
             <p:tab title="#{campaign.keyword}">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="Status:" style="font-weight: bold" />
@@ -130,6 +130,8 @@
 
                     <h:outputText value="Addresses:" style="font-weight: bold" />
                     <h:outputText value="#{campaign.emailCollectionToString}" />
+
+                    <h:link outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" value="Envoyer"></h:link>
                 </h:panelGrid>
             </p:tab>
         </p:accordionPanel>
