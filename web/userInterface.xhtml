@@ -6,6 +6,31 @@
     xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <h3>Campagnes</h3>
+        <p:accordionPanel activeIndex="false" dynamic="true" value="#{mailSearchManagedBean.getCampaignsByUser(sessionBean.currentUser)}" var="campaign">
+            <p:tab title="#{campaign.keyword}">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Status:" style="font-weight: bold" />
+                    <h:outputText value="#{campaign.status}" />
+
+                    <h:outputText value="Addresses:" style="font-weight: bold" />
+                    <h:outputText value="#{campaign.emailCollectionToString}" />
+
+                </h:panelGrid>
+                <br/>
+                <h:button outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" value="Envoyer" style="width: 200px;"></h:button>
+            </p:tab>
+        </p:accordionPanel>
+        
+        <br/>
+        <br/>
+        <br/>
+        <h3>Nouvelle campagne</h3>
+        <f:view>
+            <h:form>
+                <p:inputText id="keyword" value="#{newCampaignManagedBean.keyword}" styleClass="text-center" placeholder="Mot-clé" title="keyword" required="true"/>
+                <p:commandButton value="Valider" ajax="false" styleClass="hidden" actionListener="#{newCampaignManagedBean.create}"/>
+            </h:form>
+        </f:view>
     </ui:define>
 </ui:composition>
 
