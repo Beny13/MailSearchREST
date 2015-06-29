@@ -45,5 +45,9 @@ public class MailSearchManagedBean {
     public String goToSendMail(Integer campaignId) {
         return "emailEdit?campaignId=" + campaignId;
     }
+    
+    public String goToNewCampaing() {
+        return "newCampaign";
+    }
 
 }

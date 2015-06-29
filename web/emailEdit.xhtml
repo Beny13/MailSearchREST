@@ -17,10 +17,10 @@
                 <h1><h:outputText value="Envoi des mails"/></h1>
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Objet" for="mailObject" />
-                    <p:inputText id="mailObject" value="#{prepareMail.campaign.mailObject}" title="MailObject" />
+                    <p:inputText id="mailObject" value="#{prepareMail.mailObject}" title="MailObject" />
 
                     <p:outputLabel value="Contenu" for="mailContent" />
-                    <p:editor id="mailContent" widgetVar="editorWidget" value="#{prepareMail.campaign.mailContent}" width="600" />
+                    <p:editor id="mailContent" widgetVar="editorWidget" value="#{prepareMail.mailContent}" width="600" />
 
                     <p:outputLabel value="Pièce jointe" for="mailContent" />
                     <p:fileUpload value="#{prepareMail.mailFile}" mode="simple"/>
