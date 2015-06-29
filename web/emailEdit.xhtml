@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>MailSearch</title>
-    </h:head>
-    <h:body>
+
+    
+<ui:composition template="WEB-INF/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
         <f:metadata>
             <f:viewParam name="campaignId" value="#{prepareMail.campaignId}" required="true" />
             <f:viewAction action="#{prepareMail.loadCampaign}"/>
@@ -20,9 +20,9 @@
                     <p:inputText id="mailObject" value="#{prepareMail.mailObject}" title="MailObject" />
 
                     <p:outputLabel value="Contenu" for="mailContent" />
-                    <p:editor id="mailContent" widgetVar="editorWidget" value="#{prepareMail.mailContent}" width="600" />
+                    <p:editor id="mailContent" widgetVar="editorWidget" value="#{prepareMail.mailContent}" width="100"  rendered="true" style="visibility: visible;"/>
 
-                    <p:outputLabel value="Pièce jointe" for="mailContent" />
+                    <p:outputLabel value="Pièce jointe" for="mailContent"/>
                     <p:fileUpload value="#{prepareMail.mailFile}" mode="simple"/>
 
                 </p:panelGrid>
@@ -31,6 +31,5 @@
                 </p:commandButton>
             </h:form>
         </f:view>
-    </h:body>
-</html>
-
+    </ui:define>
+</ui:composition>
