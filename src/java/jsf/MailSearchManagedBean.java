@@ -52,5 +52,13 @@ public class MailSearchManagedBean {
     public String goToNewCampaign() {
         return "newCampaign";
     }
+    
+    public boolean campainIsReadyToSend(Integer id) {
+        try {
+            return campaignFacadeREST.find(id).getStatus().equals(Campaign.SCRAPPING_DONE);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }

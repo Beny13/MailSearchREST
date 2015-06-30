@@ -180,6 +180,10 @@ public class Campaign implements Serializable {
 
         return res.substring(0, res.length()-1);
     }
+    
+    public boolean getSendable() {
+        return this.getStatus().equals(SCRAPPING_DONE);
+    }
 
     public String getNiceStatus() {
         String res = "Statut : ";
