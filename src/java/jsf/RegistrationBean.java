@@ -19,7 +19,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.persistence.NoResultException;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-import static mailsearch.Email_.email;
 import mailsearch.User;
 import mailsearch.service.UserFacadeREST;
 
@@ -30,7 +29,7 @@ import mailsearch.service.UserFacadeREST;
 @ManagedBean
 @RequestScoped
 public class RegistrationBean {
-    
+
     private String mail;
     private String confMail;
     private String password;
@@ -83,11 +82,11 @@ public class RegistrationBean {
      */
     public RegistrationBean() {
     }
-    
+
     public boolean compareString(String chaine1, String chaine2){
         return chaine1.equals(chaine2);
     }
-    
+
     public boolean mailCorrectlyStructured(){
         boolean result = true;
         try {
@@ -98,16 +97,16 @@ public class RegistrationBean {
         }
          return result;
     }
-    
+
     public String hashPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException{
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes("UTF-8"));
         String hashedPassword = (new HexBinaryAdapter()).marshal(hash);
         hashedPassword = hashedPassword.toLowerCase();
-        
+
         return hashedPassword;
     }
-    
+
     public void Inscription() throws IOException, NoSuchAlgorithmException{
         if(mailCorrectlyStructured()){
             if(compareString(mail, confMail)){
@@ -138,12 +137,12 @@ public class RegistrationBean {
             else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", "Les adresses mails rentrées ne sont pas identiques !"));
             }
-        
+
         }
         else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", "Votre adresse mail n'est pas correctement structurée !"));
         }
-    
-    
+
+
     }
 }

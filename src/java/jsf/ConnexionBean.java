@@ -33,7 +33,7 @@ public class ConnexionBean {
     private String identifiant;
     private String password;
     public boolean registrationDone;
-    
+
     @ManagedProperty(value="#{sessionBean}")
     private SessionBean sessionBean;
 
@@ -45,7 +45,7 @@ public class ConnexionBean {
         this.registrationDone = registrationDone;
     }
 
-    
+
     public SessionBean getSessionBean() {
         return sessionBean;
     }
@@ -53,7 +53,7 @@ public class ConnexionBean {
     public void setSessionBean(SessionBean sessionBean) {
         this.sessionBean = sessionBean;
     }
-    
+
     public String getIdentifiant() {
         return identifiant;
     }
@@ -69,14 +69,14 @@ public class ConnexionBean {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     @EJB
     private UserFacadeREST userFacadeREST;
-    
+
     public ConnexionBean() {
-        
+
     }
-    
+
     public boolean comparePassword(User u) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -87,15 +87,15 @@ public class ConnexionBean {
         return u.getPassword().equals(hashedPassword);
 
     }
-    
+
     public void testConnection() throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException{
         User u = null;
-        
+
         try{
             u = userFacadeREST.getEM().createNamedQuery("User.findByMail",User.class).setParameter("mail", identifiant).getSingleResult();
         }
         catch(NoResultException e){
-            
+
         }
         if(u != null){
             boolean equality = comparePassword(u);
@@ -113,9 +113,10 @@ public class ConnexionBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", "Cet utilisateur n'existe pas"));
         }
     }
-    
+
     public void setTitleRegistration(){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription réussie !", "Votre inscription s'est déroulée avec succès !"));
+        if (registrationDone)
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription réussie !", "Votre inscription s'est déroulée avec succès !"));
     }
-    
+
 }
