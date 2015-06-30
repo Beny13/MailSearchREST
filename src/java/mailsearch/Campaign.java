@@ -75,7 +75,7 @@ public class Campaign implements Serializable {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
-    
+
     public static final String SCRAPPING_PENDING = "SCRAPPING_PENDING";
     public static final String SCRAPPING_STARTED = "SCRAPPING_STARTED";
     public static final String SCRAPPING_DONE = "SCRAPPING_DONE";
@@ -170,19 +170,54 @@ public class Campaign implements Serializable {
     }
 
     public String getEmailCollectionToString() {
-        String res = "";
+        if (this.emailCollection.isEmpty())
+            return "";
+
+        String res = "Adresses : ";
         for (Email email : this.emailCollection) {
-            res += email.getEmail();
+            res += email.getEmail() + ",";
+        }
+
+        return res.substring(0, res.length()-1);
+    }
+
+    public String getNiceStatus() {
+        String res = "Statut : ";
+
+        switch (this.getStatus()) {
+            case SCRAPPING_PENDING :
+                res += "En attente de récupération";
+                break;
+            case SCRAPPING_STARTED :
+                res += "Récupération en cours";
+                break;
+            case SCRAPPING_DONE :
+                res += "Récupération terminée";
+                break;
+            case MAILING_PENDING :
+                res += "En attente d'envoi";
+                break;
+            case MAILING_STARTED :
+                res += "Envoi en cours";
+                break;
+            case MAILING_DONE :
+                res += "Envoi terminé";
+                break;
+            default:
+                res += this.getStatus();
+                break;
         }
 
         return res;
     }
-    /*
-    public String getNiceStatus() {
-        switch (this.getStatus()) {
-            case 
-        }
-    }*/
+
+    public boolean hasDisplayableAddresses() {
+        return this.getStatus().equals(SCRAPPING_DONE)
+            || this.getStatus().equals(MAILING_PENDING)
+            || this.getStatus().equals(MAILING_STARTED)
+            || this.getStatus().equals(MAILING_DONE)
+        ;
+    }
 
     @Override
     public int hashCode() {

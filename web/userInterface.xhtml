@@ -3,18 +3,16 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="content">
         <h3>Campagnes</h3>
-        <p:accordionPanel activeIndex="false" dynamic="true" value="#{mailSearchManagedBean.getCampaignsByUser(sessionBean.currentUser)}" var="campaign">
+        <p:accordionPanel activeIndex="false" dynamic="false" value="#{mailSearchManagedBean.getCampaignsByUser(sessionBean.currentUser)}" var="campaign">
             <p:tab title="#{campaign.keyword}">
                 <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Status:" style="font-weight: bold" />
-                    <h:outputText value="#{campaign.status}" />
-
-                    <h:outputText value="Addresses:" style="font-weight: bold" />
+                    <h:outputText value="#{campaign.niceStatus}" />
+                    <br/>
                     <h:outputText value="#{campaign.emailCollectionToString}" />
-
                 </h:panelGrid>
                 <br/>
                 <h:button outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" value="Envoyer" style="width: 200px;"></h:button>
