@@ -32,7 +32,12 @@ public class SessionBean {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-    
-    
-    
+
+    public String logout() {
+        currentUser = null;
+        return "index";
+    }
+
+
+
 }
