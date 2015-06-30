@@ -106,8 +106,10 @@ public class SessionBean {
     }
 
     public void setTitleRegistration(){
-        if (registrationDone)
+        if (registrationDone) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription réussie !", "Votre inscription s'est déroulée avec succès !"));
+            registrationDone = false;
+        }
     }
 
     public boolean userHasCampaigns() {
