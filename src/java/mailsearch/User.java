@@ -101,6 +101,10 @@ public class User implements Serializable {
         this.campaignCollection = campaignCollection;
     }
 
+    public void addCampaign(Campaign campaign) {
+        this.campaignCollection.add(campaign);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -125,5 +129,5 @@ public class User implements Serializable {
     public String toString() {
         return "mailsearch.User[ id=" + id + " ]";
     }
-    
+
 }
