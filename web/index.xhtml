@@ -6,6 +6,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="inscription" value="#{connexionBean.registrationDone}"/>
+            <f:viewAction action="#{connexionBean.setTitleRegistration()}"/>
+        </f:metadata>
         <h:form>
             <h1><h:outputText value="Connexion"/></h1>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />

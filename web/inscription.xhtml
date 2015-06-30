@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:form>
+            <h1><h:outputText value="Inscription"/></h1>
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <p:panelGrid id ="grid" columns="2">
+                <p:outputLabel value="Adresse mail :" for="mail" />
+                <p:inputText id="mail" value="#{registrationBean.mail}" title="Adresse mail" required="true"/>
+                
+                <p:outputLabel value="Confirmation de l'adresse mail :" for="confMail" />
+                <p:inputText id="confMail" value="#{registrationBean.confMail}" title="Confirmation mail" required="true"/>
+
+                <p:outputLabel value="Mot de passe :" for="mdp" />
+                <p:inputText id="mdp" value="#{registrationBean.password}" title="Password" type="password" required="true"/>
+                
+                <p:outputLabel value="Confirmation du mot de passe :" for="confMdp" />
+                <p:inputText id="confMdp" value="#{registrationBean.confPassword}" title="Confirmation password" type="password" required="true"/>
+            </p:panelGrid>
+            <br/>
+            <p:commandButton value="Inscription" ajax="false" actionListener="#{registrationBean.Inscription()}" update="grid">
+            </p:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
