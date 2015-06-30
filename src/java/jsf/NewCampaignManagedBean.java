@@ -20,7 +20,7 @@ public class NewCampaignManagedBean {
     private UserFacadeREST userFacadeREST;
     @EJB
     private CampaignFacadeREST campaignFacadeREST;
-    
+
     private Campaign campaign;
     private String keyword;
 
@@ -43,15 +43,21 @@ public class NewCampaignManagedBean {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
-    
+
     public String createByUser(User user) {
         campaign.setKeyword(keyword);
         campaign.setStatus(Campaign.SCRAPPING_PENDING);
         campaign.setUserId(user);
         campaignFacadeREST.create(campaign);
+
+        user.addCampaign(campaign);
+        userFacadeREST.edit(user);
+
+        keyword = "";
+
         return "userInterface";
     }
-    
-       
-    
+
+
+
 }
