@@ -6,22 +6,25 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="content">
-        <h3>Campagnes</h3>
-        <p:accordionPanel activeIndex="false" dynamic="false" value="#{mailSearchManagedBean.getCampaignsByUser(sessionBean.currentUser)}" var="campaign">
-            <p:tab title="#{campaign.keyword}">
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="#{campaign.niceStatus}" />
+        <c:if test="#{sessionBean.userHasCampaigns()}">
+            <h3>Campagnes</h3>
+            <p:accordionPanel activeIndex="false" dynamic="false" value="#{mailSearchManagedBean.getCampaignsByUser(sessionBean.currentUser)}" var="campaign">
+                <p:tab title="#{campaign.keyword}">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="#{campaign.niceStatus}" />
+                        <br/>
+                        <h:outputText value="#{campaign.emailCollectionToString}" />
+                    </h:panelGrid>
                     <br/>
-                    <h:outputText value="#{campaign.emailCollectionToString}" />
-                </h:panelGrid>
-                <br/>
-                <h:button outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" value="Envoyer" style="width: 200px;"></h:button>
-            </p:tab>
-        </p:accordionPanel>
+                    <h:button outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" value="Envoyer" style="width: 200px;"></h:button>
+                </p:tab>
+            </p:accordionPanel>
 
-        <br/>
-        <br/>
-        <br/>
+            <br/>
+            <br/>
+            <br/>
+        </c:if>
+
         <h3>Nouvelle campagne</h3>
         <f:view>
             <h:form>

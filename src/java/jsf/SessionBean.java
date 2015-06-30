@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import mailsearch.Campaign;
 import mailsearch.User;
 import mailsearch.service.UserFacadeREST;
 
@@ -106,6 +108,14 @@ public class SessionBean {
     public void setTitleRegistration(){
         if (registrationDone)
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription réussie !", "Votre inscription s'est déroulée avec succès !"));
+    }
+
+    public boolean userHasCampaigns() {
+        try {
+            return !userFacadeREST.find(currentUser.getId()).getCampaignCollection().isEmpty();
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
 }
