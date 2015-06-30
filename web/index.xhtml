@@ -7,21 +7,21 @@
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="inscription" value="#{connexionBean.registrationDone}"/>
-            <f:viewAction action="#{connexionBean.setTitleRegistration()}"/>
+            <f:viewParam name="inscription" value="#{sessionBean.registrationDone}"/>
+            <f:viewAction action="#{sessionBean.setTitleRegistration()}"/>
         </f:metadata>
         <h:form>
             <h1><h:outputText value="Connexion"/></h1>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <p:panelGrid id ="grid" columns="2">
                 <p:outputLabel value="Identifiant :" for="identifiant" />
-                <p:inputText id="identifiant" value="#{connexionBean.identifiant}" title="Identifiant" required="true"/>
+                <p:inputText id="identifiant" value="#{sessionBean.identifiant}" title="Identifiant" required="true"/>
 
                 <p:outputLabel value="Mot de passe :" for="mdp" />
-                <p:inputText id="mdp" value="#{connexionBean.password}" title="Password" type="password" required="true"/>
+                <p:inputText id="mdp" value="#{sessionBean.password}" title="Password" type="password" required="true"/>
             </p:panelGrid>
             <br/>
-            <p:commandButton value="Connexion" ajax="false" actionListener="#{connexionBean.testConnection()}" update="grid">
+            <p:commandButton value="Connexion" ajax="false" actionListener="#{sessionBean.testConnection()}" update="grid">
             </p:commandButton>
         </h:form>
     </ui:define>

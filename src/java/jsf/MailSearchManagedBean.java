@@ -33,18 +33,6 @@ public class MailSearchManagedBean {
     @EJB
     private CampaignFacadeREST campaignFacadeREST;
 
-    @ManagedProperty(value="#{sessionBean}")
-    private SessionBean sessionBean;
-
-    public SessionBean getSessionBean() {
-        return sessionBean;
-    }
-
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
-
-
     public MailSearchManagedBean() {
     }
 
