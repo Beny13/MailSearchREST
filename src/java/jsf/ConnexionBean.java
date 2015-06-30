@@ -32,10 +32,20 @@ import mailsearch.service.UserFacadeREST;
 public class ConnexionBean {
     private String identifiant;
     private String password;
+    public boolean registrationDone;
     
     @ManagedProperty(value="#{sessionBean}")
     private SessionBean sessionBean;
 
+    public boolean isRegistrationDone() {
+        return registrationDone;
+    }
+
+    public void setRegistrationDone(boolean registrationDone) {
+        this.registrationDone = registrationDone;
+    }
+
+    
     public SessionBean getSessionBean() {
         return sessionBean;
     }
@@ -102,6 +112,10 @@ public class ConnexionBean {
         else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", "Cet utilisateur n'existe pas"));
         }
+    }
+    
+    public void setTitleRegistration(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription réussie !", "Votre inscription s'est déroulée avec succès !"));
     }
     
 }
