@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 
-    
+
 <ui:composition template="WEB-INF/template.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
@@ -22,12 +22,13 @@
                     <p:outputLabel value="Contenu" for="mailContent" />
                     <p:editor id="mailContent" widgetVar="editorWidget" value="#{prepareMail.mailContent}" width="100"  rendered="true" style="visibility: visible;"/>
 
-                    <p:outputLabel value="Pièce jointe" for="mailContent"/>
-                    <p:fileUpload value="#{prepareMail.mailFile}" mode="simple"/>
+                    <p:outputLabel value="Pièce jointe" for="file"/>
+                    <h:inputFile id="file" value="#{prepareMail.mailFile}"/>
 
                 </p:panelGrid>
                 <br/>
-                <p:commandButton value="Valider" ajax="false" actionListener="#{prepareMail.send}">
+
+                <p:commandButton value="Valider" ajax="false" action="userInterface.xthtml?faces-redirect=true" actionListener="#{prepareMail.send}">
                 </p:commandButton>
             </h:form>
         </f:view>

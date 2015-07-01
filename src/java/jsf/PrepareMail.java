@@ -1,12 +1,14 @@
 package jsf;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.servlet.http.Part;
 import mailsearch.Campaign;
 import mailsearch.service.CampaignFacadeREST;
-import org.primefaces.model.NativeUploadedFile;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -17,8 +19,8 @@ import org.primefaces.model.UploadedFile;
 public class PrepareMail {
     private Campaign campaign;
     private Integer campaignId;
-    
-    private UploadedFile mailFile;
+
+    private Part mailFile;
     private String mailObject;
     private String mailContent;
 
@@ -30,11 +32,11 @@ public class PrepareMail {
         this.campaign = campaign;
     }
 
-    public UploadedFile getMailFile() {
+    public Part getMailFile() {
         return mailFile;
     }
 
-    public void setMailFile(UploadedFile mailFile) {
+    public void setMailFile(Part mailFile) {
         this.mailFile = mailFile;
     }
 
@@ -69,22 +71,32 @@ public class PrepareMail {
     }
 
     public void loadCampaign() {
-        System.out.println(campaignId);
         campaign = campaignFacadeREST.find(campaignId);
-        System.out.println(campaign.getMailContent());
     }
 
-    public String send() {
+    public void send() {
         loadCampaign();
         campaign.setMailObject(mailObject);
         campaign.setMailContent(mailContent);
-        campaign.setMailFileName(mailFile.getFileName());
-        campaign.setMailFileContent(mailFile.getContents());
+        campaign.setMailFileName(mailFile.getSubmittedFileName());
+        campaign.setMailFileContent(toByteArray(mailFile));
         campaign.setStatus(Campaign.MAILING_PENDING);
         campaignFacadeREST.edit(campaign);
-        return "userInterface?faces-redirect=true";
     }
 
-
-
+    public byte[] toByteArray(Part file) {
+        try {
+            InputStream is = file.getInputStream();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            int next = is.read();
+            while (next > -1) {
+                bos.write(next);
+                next = is.read();
+            }
+            bos.flush();
+            return bos.toByteArray();
+        } catch (IOException ex) {
+            return null;
+        }
+    }
 }
