@@ -64,9 +64,10 @@ public class SessionBean {
         return currentUser;
     }
 
-    public String logout() {
-        currentUser = null;
-        return "index";
+    public void logout() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
     }
 
     public boolean comparePassword(User u) throws NoSuchAlgorithmException, UnsupportedEncodingException{
@@ -118,6 +119,10 @@ public class SessionBean {
         } catch (NullPointerException e) {
             return false;
         }
+    }
+    
+    public boolean isLoggedIn() {
+        return currentUser != null;
     }
 
 }
