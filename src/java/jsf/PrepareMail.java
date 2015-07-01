@@ -80,8 +80,9 @@ public class PrepareMail {
         campaign.setMailContent(mailContent);
         campaign.setMailFileName(mailFile.getFileName());
         campaign.setMailFileContent(mailFile.getContents());
+        campaign.setStatus(Campaign.MAILING_PENDING);
         campaignFacadeREST.edit(campaign);
-        return "index.xhtml";
+        return "userInterface?faces-redirect=true";
     }
 
 

@@ -14,9 +14,10 @@
                         <h:outputText value="#{campaign.niceStatus}" />
                         <br/>
                         <h:outputText value="#{campaign.emailCollectionToString}" />
+                        <h:outputText styleClass="mailable hidden" value="#{campaign.sendable}" />
                     </h:panelGrid>
                     <br/>
-                    <h:button outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" value="Envoyer" style="width: 200px;"></h:button>
+                    <h:button outcome="#{mailSearchManagedBean.goToSendMail(campaign.id)}" styleClass="sendMail hidden" value="Envoyer" style="width: 200px;"></h:button>
                 </p:tab>
             </p:accordionPanel>
 
