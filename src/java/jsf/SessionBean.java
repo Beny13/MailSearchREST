@@ -64,9 +64,10 @@ public class SessionBean {
         return currentUser;
     }
 
-    public String logout() {
+    public void logout() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index?faces-redirect=true";
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
     }
 
     public boolean comparePassword(User u) throws NoSuchAlgorithmException, UnsupportedEncodingException{
