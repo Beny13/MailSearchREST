@@ -38,7 +38,6 @@ public class MailSearchManagedBean {
 
     public List<Campaign> getCampaignsByUser(User user) {
         return (List<Campaign>) userFacadeREST.find(user.getId()).getCampaignCollection();
-        // return (List<Campaign>) user.getCampaignCollection();
     }
 
     public List<Email> getEmailsByCampaign(Campaign campaign) {
@@ -52,7 +51,7 @@ public class MailSearchManagedBean {
     public String goToNewCampaign() {
         return "newCampaign";
     }
-    
+
     public boolean campainIsReadyToSend(Integer id) {
         try {
             return campaignFacadeREST.find(id).getStatus().equals(Campaign.SCRAPPING_DONE);
@@ -60,5 +59,4 @@ public class MailSearchManagedBean {
             return false;
         }
     }
-
 }
